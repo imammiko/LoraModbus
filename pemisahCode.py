@@ -6,7 +6,8 @@ class PemisahData:
         "humadity": 0,
         "mq": 0,
         "latitude":0,
-        "longititude":0
+        "longititude":0,
+        "id":0
         }
         self.code=codeAwal
     
@@ -78,7 +79,7 @@ class PemisahData:
                         break
                     nampungKalimat+=x;
                 
-                self.dataSensorArduino["latitude"]=nampungKalimat
+                self.dataSensorArduino["latitude"]=float(nampungKalimat)
                 
                 nampungKalimat=""
 
@@ -90,9 +91,22 @@ class PemisahData:
                         break
                     nampungKalimat+=x;
                 
-                self.dataSensorArduino["longititude"]=nampungKalimat
+                self.dataSensorArduino["longititude"]=float(nampungKalimat)
                 
                 nampungKalimat=""
+
+            if (arduinoData.rfind('/id')>0):
+                #print (arduinoData.rfind('/mq:'))
+                startString=arduinoData.rfind('/id:')
+                for x in arduinoData[startString+len("/id:"):]:
+                    if (x=="/"):
+                        break
+                    nampungKalimat+=x;
+                
+                self.dataSensorArduino["id"]=int(nampungKalimat)
+                
+                nampungKalimat=""
+                
 
         return self.dataSensorArduino
         
